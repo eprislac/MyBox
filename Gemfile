@@ -38,3 +38,5 @@ gem 'paperclip', '~> 2.3'
 
 # To use debugger
 # gem 'debugger'
+
+gem "mocha", :group => :test
