@@ -24,6 +24,7 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'nifty-generators', :group => :development
 gem 'paperclip', '~> 2.3' 
+gem 'acts_as_tree'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
