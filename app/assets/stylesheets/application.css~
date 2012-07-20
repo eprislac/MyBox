@@ -58,7 +58,7 @@ header {
 .asset_list_header, .asset_list, .asset_details { 
 	width:800px;
 	font-weight:bold;
-	font-size:11px;
+	font-size:12px;
 	overflow:hidden;
 }
 
@@ -94,5 +94,5 @@ header {
 .asset_details a, .asset_details a:visited {
 	text-decoration:none;
 	color:#1d96ef;
-	font-size:11px;
+	font-size:12px;
 }
