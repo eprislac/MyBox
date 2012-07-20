@@ -23,8 +23,11 @@ header{
 	padding:0 20px;
 }
 .logo{
+	display:block;
 	width:50%;
 	float:left;
+	padding:0;
+	margin:0;
 }
 .logo a{
 	color: #338DCF; 
@@ -32,3 +35,18 @@ header{
 	font-weight:bold;
 	text-shadow: 2px 2px 2px #FFFFFF; 
 }
+#container{
+	width: 900px;
+	margin: 0 auto;
+	background: #fff;
+	padding: 20px 40px;
+	border: solid 1px #bfbfbf;
+}
+#login-status{
+	display:block;
+	padding-top:25px;
+	float:right;
+	width:50%;
+	text-align:right;
+}
+
