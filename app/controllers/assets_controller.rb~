@@ -1,5 +1,5 @@
 class AssetsController < ApplicationController
-  before_filter :authenticat_user!
+  before_filter :authenticate_user!
   
   def index
     @assets = current_user.assets
@@ -23,7 +23,7 @@ class AssetsController < ApplicationController
   end
 
   def edit
-    @asset = @assets = current_user.assets.find(params[:id])
+    @asset = current_user.assets.find(params[:id])
   end
 
   def update

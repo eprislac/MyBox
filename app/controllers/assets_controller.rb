@@ -10,7 +10,7 @@ class AssetsController < ApplicationController
   end
 
   def new
-    @assets = current_user.assets.new
+    @asset = current_user.assets.new
   end
 
   def create
@@ -23,7 +23,7 @@ class AssetsController < ApplicationController
   end
 
   def edit
-    @asset = @assets = current_user.assets.find(params[:id])
+    @asset = current_user.assets.find(params[:id])
   end
 
   def update
