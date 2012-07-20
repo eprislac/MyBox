@@ -1,4 +1,6 @@
 class AssetsController < ApplicationController
+  before_filter :authenticat_user!
+  
   def index
     @assets = current_user.assets
   end
