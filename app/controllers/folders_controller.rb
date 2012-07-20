@@ -5,15 +5,15 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @folders = current_user.folders.find(params[:id])
+    @folder = current_user.folders.find(params[:id])
   end
 
   def new
-    @folders = current_user.folders.new
+    @folder = current_user.folders.new
   end
 
   def create
-    @folders = current_user.folders.new(params[:folder])
+    @folder = current_user.folders.new(params[:folder])
     if @folder.save
       redirect_to @folder, :notice => "Successfully created folder."
     else

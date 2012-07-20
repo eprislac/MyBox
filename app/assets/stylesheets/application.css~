@@ -56,7 +56,7 @@ header {
 }
 
 .asset_list_header, .asset_list, .asset_details { 
-	width:800px;
+	width:900px;
 	font-weight:bold;
 	font-size:12px;
 	overflow:hidden;
@@ -95,4 +95,38 @@ header {
 	text-decoration:none;
 	color:#1d96ef;
 	font-size:12px;
+}
+
+#menu {
+	width:900px;
+	padding:0 20px;
+	margin:20px auto;
+	overflow:hidden;
+}
+
+#menu ul {
+	padding:0;
+	margin:0;
+}
+
+#menu ul li {
+	list-style:none;
+	float:left;
+	display:block;
+	margin-right:10px;
+}
+
+#menu ul li a, #menu ul li a:visited {
+	display:block;
+	padding: 0 15px;
+	line-height: 25px;
+	text-decoration: none;
+	color: #45759f;
+	background:#eff8ff;
+	border: 1px solid #cfebff;
+}
+
+#menu ul li a:hover, #menu ul li a:active {
+	background: #dff1ff;
+	border: 1px solid #afddff;
 }
