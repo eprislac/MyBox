@@ -4,7 +4,6 @@ class CreateAssets < ActiveRecord::Migration
       t.integer :user_id
       t.timestamps
     end
-    add_index :assets, :user_id
   end
 
   def self.down
