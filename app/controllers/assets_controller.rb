@@ -1,5 +1,5 @@
 class AssetsController < ApplicationController
-  before_filter :authenticat_user!
+  before_filter :authenticate_user!
   
   def index
     @assets = current_user.assets
