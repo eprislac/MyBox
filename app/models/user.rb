@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+ has_many :folders
  has_many :assets
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
