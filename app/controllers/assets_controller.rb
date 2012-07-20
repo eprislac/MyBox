@@ -5,6 +5,14 @@ class AssetsController < ApplicationController
     @assets = current_user.assets
   end
 
+  def get
+    @asset = current_user.assets.find_by_id(params[:id])
+    if @asset
+      send_file @asset.uploaded_file.path, :type => @asset.uploaded_file_content_type
+    end
+      
+  end
+  
   def show
     @asset = current_user.assets.find(params[:id])
   end
