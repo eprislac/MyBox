@@ -8,6 +8,8 @@ Mybox::Application.routes.draw do
   root :to => "home#index" 
   
   match "assets/get/:id" => "assets#get", :as => "download"
+  
+  match "browse/:folder_id" => "home#browse", :as => "browse"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
