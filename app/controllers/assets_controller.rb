@@ -8,7 +8,12 @@ class AssetsController < ApplicationController
   def get
     @asset = current_user.assets.find_by_id(params[:id])
     if @asset
+      # needs to be updated to use X-Sendfile apache module (https://tn123.org/mod_xsendfile/)
+      # instructions on how to use X-Sendfile with Rails : http://www.therailsway.com/2009/2/22/file-downloads-done-right/
       send_file @asset.uploaded_file.path, :type => @asset.uploaded_file_content_type
+    else
+      flash[:error] = "Don't be cheeky, mind your own assets!"
+      redirect_to assets_path
     end
       
   end
