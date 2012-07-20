@@ -5,17 +5,34 @@ class FoldersController < ApplicationController
   end
 
   def show
-    @folders = current_user.folders.find(params[:id])
+    @folder = current_user.folders.find(params[:id])
   end
 
   def new
-    @folders = current_user.folders.new
+  
+    @folder = current_user.folders.new
+    
+    #if there is a "folder_id" param, we know that we are under a folder, thus, we will essentially create a subfolder
+    if params[:folder_id] # if we want to create a folder inside another folder
+      
+      # We still need to set the @current_folder to make the buttons work correctly
+      @current_folder = current_user.folders.find(params[:folder_id])
+      
+      # Then, we make sure the folder we are creating has a parent folder which is the @current_folder
+      @folder.parent_id = @current_folder.id
+      
+    end
   end
 
   def create
-    @folders = current_user.folders.new(params[:folder])
+    @folder = current_user.folders.new(params[:folder])
     if @folder.save
-      redirect_to @folder, :notice => "Successfully created folder."
+      
+      if @folder.parent # Checking if we have a parent folder on this one
+        redirect_to browse_path(@folder.parent), :notice => "Successfully created folder." # Then we redirect to the parent folder
+      else
+        redirect_to root_url, :notice => "Successfully created folder." #if not, redirect back to home page 
+      end
     else
       render :action => 'new'
     end

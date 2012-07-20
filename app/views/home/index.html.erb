@@ -5,7 +5,11 @@
   <div id="menu">
     <ul id="top_menu">
       <li><%= link_to "Upload", new_asset_path %></li>
+      <% if !@current_folder %>
       <li><%= link_to "New Folder", new_folder_path %></li> 
+      <% else %>
+      <li><%= link_to "New Folder", new_sub_folder_path(@current_folder) %></li> 
+      <% end %>
     </ul>
   </div>
   <div class="asset_list_header">
@@ -17,7 +21,7 @@
     <!--Listing Folders -->
       <% @folders.each do |folder| %>
         <div class="asset_details folder">
-          <div class="file_name">&nbsp;&nbsp;<%= link_to folder.name, folder_path(folder) %></div>
+          <div class="file_name">&nbsp;&nbsp;<%= link_to folder.name, browse_path(folder) %></div>
           <div class="file_size"> - </div>
           <div class="file_last_updated"> - </div>
         </div>
@@ -27,8 +31,7 @@
 	    <div class="asset_details file">
 	      <div class="file_name">&nbsp;&nbsp;<%= link_to asset.file_name, download_url(asset) %></div>
 	      <div class="file_size"><%= number_to_human_size(asset.file_size, :precision => 2) %></div>
-	      <div class="file_last_updated"><%= asset.uploaded_file_updated_at %>
-	    </div>
+	      <div class="file_last_updated"><%= asset.uploaded_file_updated_at %> </div>
       
     <% end %>
   </div>

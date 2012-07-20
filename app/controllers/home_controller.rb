@@ -2,10 +2,10 @@ class HomeController < ApplicationController
   def index
     if user_signed_in?
       # load the current user's folders
-      @folders = current_user.folders.order("name desc")
+      @folders = current_user.folders.roots
       
       # load the current user's files (assets)
-      @assets = current_user.assets.order("uploaded_file_file_name desc")
+      @assets = current_user.assets.where("folder_id is NULL").order("uploaded_file_file_name desc") 
     end
     
     def browse
@@ -17,8 +17,8 @@ class HomeController < ApplicationController
         #getting the folders which are inside this @current_folder
         @folders = @current_folder.children
         
-        #We need to fix this to show files under a specific folder if we are viewing that folder
-        @assets = current_user.assets.order("uloaded_file_file_name desc")
+        #Only show files under the current folder
+        @assets = @current_folder.assets.order("uploaded_file_file_name desc")
         
         render :action => "index"
       else
