@@ -43,8 +43,13 @@ class FoldersController < ApplicationController
 
   def update
     @folder = current_user.folders.find(params[:id])
+    @parent_folder = @folder.parent
     if @folder.update_attributes(params[:folder])
-      redirect_to @folder, :notice  => "Successfully updated folder."
+      if @parent_folder
+        redirect_to browse_path(@parent_folder), :notice  => "Folder has been renamed."
+      else
+        redirect_to root_url, :notice  => "Folder has been renamed."
+      end
     else
       render :action => 'edit'
     end
