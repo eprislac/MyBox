@@ -18,6 +18,8 @@ Mybox::Application.routes.draw do
   # for uploading files to folders
   match "browse/:folder_id/new_file" => "assets#new", :as => "new_sub_file"
   
+  #for renaming a folder  
+  match "browse/:folder_id/rename" => "folders#edit", :as => "rename_folder"
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

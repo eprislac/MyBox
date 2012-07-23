@@ -1,6 +1,10 @@
 class User < ActiveRecord::Base
  has_many :folders
  has_many :assets
+ # this is for folders which the user has shared
+ has_many :shared_folders, :dependent => :destroy
+ # this is for folders that have been shared to the user by other users
+ has_many :being_shared_folders, :class_name => "SharedFolder", :foreign_key => "shared_user_id", :dependent => :destroy
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable

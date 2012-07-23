@@ -29,24 +29,7 @@ $(function() {
 		// Then put the folder_id of the Share lin into the hidden field "folder_id" of the invite form
 		$("#folder_id").val($(a).attr("folder_id"));
 		
-		//dialog box customization
-		$("#invitation_form").dialog({height:300,width:600,modal:true,buttons:{
-			// First button
-			"Share": function() {
-				// Get the url to post the form data top_menu
-				var post_url = $("#invitation_form form").attr("action");
-				
-				//serialize the form data and post it the url with ajax
-				$.post(post_url, $("#invitation_form form").serialize(), null, "script")
-				
-				return false;
-			},
-			// Second button
-			Cancel: function() {
-				$(this).dialog( "close" );
-			}
-		}
-	});
+		// Add the dialog box loading here
 		
 		return false;
 	});

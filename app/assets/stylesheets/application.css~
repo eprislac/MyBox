@@ -168,5 +168,34 @@ header {
 	color: #1d96ef;
 	text-decoration:none;
 }
+
+.actions {
+	float:float:right;
+	font-size:10px;
+}
+
+.share, .rename, .download, .delete {
+	float:left;
+}
+
+.asset_details .share a, .asset_details .rename a, .asset_details .download a, .asset_details .delete a {
+	border: 1px solid #cfe9ff;
+	font-size: 10px;
+	margin-left: 5px;
+	padding: 0 2px;
+}
+
+.asset_details .share a:hover, .asset_details .rename a:hover, .asset_details .download a:hover, .asset_details .delete a:hover{
+	border: 1px solid #8fcdff;
+}
+
+.asset_details .delete a {
+	color: #bf0b12;
+	border: 1px solid #ffcfd1;
+}
+
+.asset_details .delet a:hover {
+	color: #bf0b12;
+	border: 1px solid #ff8f93;
 }
 }

@@ -14,4 +14,20 @@ class User < ActiveRecord::Base
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
+  
+  after_create :check_and_assign_shared_ids_to_shared_folders
+  
+  # this is to  amke sure the new user, of which the email addresses already used to share folders, to have access to folders shared with that user
+  def check_and_assign_shared_ids_to_shared_folders
+    # First checking if the new user's email address exists in any SharedFolder records
+    shared_folders_with_same_email = SharedFolder.find_all_by_shared_email(self.email)
+    
+    if shared_folders_with_same_email
+      # Loop and update the shared user id with this new user id
+      shared_folders_with_same_email.each do |shared_folder|
+        shared_folder.shared_user_id = self.id
+        shared_folder.save
+      end
+  end
+  
 end

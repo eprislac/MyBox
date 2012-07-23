@@ -28,8 +28,8 @@
           <div class="file_size"> - </div>
           <div class="file_last_updated"> - </div>
           <div class="actions">
-		  <div class="share"><%= link_to "Share" %></div>
-		  <div class="rename"><%= link_to "Rename" %></div>
+		  <div class="share"><%= link_to "Share", "#", :folder_id => folder.id, :folder_name => folder.name %></div>
+		  <div class="rename"><%= link_to "Rename", rename_folder_path(folder) %></div>
 		  <div class="delete"><%= link_to "Delete", folder, :confirm => 'Are you sure to delete the folder and all of its contents?', :method => :delete %></div>
           </div>
         </div>
@@ -45,5 +45,18 @@
 		  <div class="delete"><%=link_to "Delete",  asset, :confirm => 'Are you sure?', :method => :delete %></div>
           </div>
     <% end %>
+  </div>
+  <div id="invitation_form">
+    <% form_tag 'home/share' do - %>
+      <label for="email_addresses">Enter recipient addresses here</label><br />
+      <%= text_field_tag 'email_addresses', "", :class => 'text ui-widget-content ui-corner-all' %>
+      <br /><br />
+      <label for="message">
+      Optional Message
+      </label><br />
+      <%= text_area_tag 'message', "", :class => 'text ui-widget-content ui-corenr-all' %>
+      <%= hidden_field_tag "folder_id" %>
+    <% end - %>
+  </div>
   </div>
 <% end %>

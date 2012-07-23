@@ -19,13 +19,12 @@ class HomeController < ApplicationController
       @folders = @current_folder.children
         
        #Only show files under the current folder
-       @assets = @current_folder.assets.order("uploaded_file_file_name desc")
+      @assets = @current_folder.assets.order("uploaded_file_file_name desc")
         
-       render :action => "index"
-     else
+      render :action => "index"
+    else
         flash[:error] = "Don't be cheeky, mind your own folders!"
         redirect_to root_url
-      end
     end
   end
 end
