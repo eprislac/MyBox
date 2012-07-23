@@ -1,4 +1,4 @@
-<% title "Rename Folder" %>
+<% title "Edit Folder" %>
 
 <%= render 'form' %>
 
