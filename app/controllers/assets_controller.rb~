@@ -33,7 +33,13 @@ class AssetsController < ApplicationController
   def create
    @asset = current_user.assets.new(params[:asset])
     if @asset.save
-      redirect_to @asset, :notice => "Successfully created asset."
+      flash[:notice] = "Successfully uploaded file"
+      
+      if @asset.folder # checking if we have a parent folder for this file
+        redirect_to browse_path(@asset.folder) #then we redirect to the parent folder
+      else
+        redirect_to root_url
+      end
     else
       render :action => 'new'
     end
