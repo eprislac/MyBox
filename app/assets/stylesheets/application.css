@@ -194,7 +194,7 @@ header {
 	border: 1px solid #ffcfd1;
 }
 
-.asset_details .delet a:hover {
+.asset_details .delete a:hover {
 	color: #bf0b12;
 	border: 1px solid #ff8f93;
 }
@@ -212,6 +212,7 @@ header {
 
 #invitation_form {
 	font-size:12px;
+	display:none;
 }
 
 #invitation_form label {

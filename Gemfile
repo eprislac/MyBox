@@ -21,6 +21,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
 gem 'devise'
 gem 'nifty-generators', :group => :development
 gem 'paperclip', '~> 2.3' 

@@ -14,9 +14,10 @@
 //= require jquery_ujs
 //= require_tree .
 
+
 $(function() {
 	//open the invitation form when a share button is clicked
-	$(".share a").button.click(function()) {
+	$(".share a").button().click(function() {
 		//assign this specific Share link element into a variable called "a"
 		var a = $(this);
 		
@@ -24,7 +25,7 @@ $(function() {
 		$("#invitation_form").attr("title", "Share " + $(a).attr("folder_name") + " with others");
 		
 		// a hack to display the different folder names correctly
-		$("#ui-dialog-title-invitation_form").text("Share "+ $(a).attr("folder_name" + " with others");
+		$("#ui-dialog-title-invitation_form").text("Share "+ $(a).attr("folder_name" + " with others"));
 		
 		// Then put the folder_id of the Share lin into the hidden field "folder_id" of the invite form
 		$("#folder_id").val($(a).attr("folder_id"));
