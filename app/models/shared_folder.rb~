@@ -1,0 +1,3 @@
+class SharedFolder < ActiveRecord::Base
+  attr_accessible :folder_id, :message, :shared_email, :shared_user_id, :user_id
+end
