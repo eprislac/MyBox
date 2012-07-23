@@ -1,5 +1,11 @@
-<% title "New Asset" %>
+<% title "Upload a file" %>
 
 <%= render 'form' %>
 
-<p><%= link_to "Back to List", assets_path %></p>
+<p>
+<% if @asset.folder %>
+  <%= link_to "Back to '#{@asset.folder.name}' Folder", browse_path(@asset.folder) %>
+<% else %>
+  <%= link_to "Back", root_url %>
+<% end %>
+</p>
