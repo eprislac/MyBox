@@ -1,23 +1,29 @@
 class AssetsController < ApplicationController
   before_filter :authenticate_user!
-  
+
   def index
     @assets = current_user.assets
   end
 
   def get
+    # First, find the asset within own assets
     @asset = current_user.assets.find_by_id(params[:id])
+
+    # If not found in own assets, check if the current_user has share access to the parent folder of the file
+    @asset ||= Asset.find(params[:id]) if current_user.has_share_access?(Asset.find_by_id(params[:id]).folder)
+
     if @asset
-      # needs to be updated to use X-Sendfile apache module (https://tn123.org/mod_xsendfile/)
-      # instructions on how to use X-Sendfile with Rails : http://www.therailsway.com/2009/2/22/file-downloads-done-right/
-      send_file @asset.uploaded_file.path, :type => @asset.uploaded_file_content_type
+      #Parse the url for special characters before downloading
+      data = open(@asset.uploaded_file.url)
+      send_data data, :filename => @asset.file_name
+      #redirect_to asset.uploaded_file.url
     else
       flash[:error] = "Don't be cheeky, mind your own assets!"
-      redirect_to assets_path
+      redirect_to root_url
     end
-      
+
   end
-  
+
   def show
     @asset = current_user.assets.find(params[:id])
   end
@@ -34,7 +40,7 @@ class AssetsController < ApplicationController
    @asset = current_user.assets.new(params[:asset])
     if @asset.save
       flash[:notice] = "Successfully uploaded file"
-      
+
       if @asset.folder # checking if we have a parent folder for this file
         redirect_to browse_path(@asset.folder) #then we redirect to the parent folder
       else
@@ -46,7 +52,7 @@ class AssetsController < ApplicationController
   end
 
   def edit
-    @asset = current_user.assets.find(params[:id]) 
+    @asset = current_user.assets.find(params[:id])
   end
 
   def update
@@ -59,8 +65,15 @@ class AssetsController < ApplicationController
   end
 
   def destroy
-    @asset = current_user.assets.find(params[:id]) 
+    @asset = current_user.assets.find(params[:id])
+    @parent_folder = @asset.folder #grabbing the parent_folder before deleting the record
     @asset.destroy
-    redirect_to assets_url, :notice => "Successfully destroyed asset."
+    flash[:notice] = "File successfully deleted."
+    #redirect to a relevant path depending on the parent folder
+    if @parent_folder
+      redirect_to browse_path(@parent_folder)
+    else
+      redirect_to root_url
+    end
   end
 end
