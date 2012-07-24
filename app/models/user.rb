@@ -5,30 +5,53 @@ class User < ActiveRecord::Base
  has_many :shared_folders, :dependent => :destroy
  # this is for folders that have been shared to the user by other users
  has_many :being_shared_folders, :class_name => "SharedFolder", :foreign_key => "shared_user_id", :dependent => :destroy
+ #this is for getting folder objects which the user has been shared by others
+ has_many :shared_folders_by_others, :through => :being_shared_folders, :source => :folder
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
- 
+
   # Setup accessible (or protected) attributes for your model
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
-  
+
   after_create :check_and_assign_shared_ids_to_shared_folders
-  
+
   # this is to  amke sure the new user, of which the email addresses already used to share folders, to have access to folders shared with that user
   def check_and_assign_shared_ids_to_shared_folders
     #First checking if the new user's email exists in any of SharedFolder records
-    shared_folders_with_same_email = SharedFolder.find_all_by_shared_email(self.email) 
-    
-    if shared_folders_with_same_email 
+    shared_folders_with_same_email = SharedFolder.find_all_by_shared_email(self.email)
+
+    if shared_folders_with_same_email
       # Loop and update the shared user id with this new user id
       shared_folders_with_same_email.each do |shared_folder|
-        shared_folder.shared_user_id = self.id 
+        shared_folder.shared_user_id = self.id
         shared_folder.save
       end
     end
   end
-  
+
+  # to check if a user has access to this specific folder
+  def has_share_access?( folder )
+    # has share access if the folder is one of his own
+    return true if self.folder.include?( folder )
+
+    #has share access if the folder is one of the shared_folders_by_others
+    return true if self.shared_folders_by_others.include( folder )
+
+    # for checking sub_folders under one of the being_shared_folders
+    return value = false
+
+    folder.ancestors each do |ancestor_folder|
+      return_value = self.being_shared_folders.include?( ancestor_folder )
+      if return_value # if it's true
+        return true
+      end
+    end
+
+    return false
+  end
+
 end

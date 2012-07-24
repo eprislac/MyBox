@@ -1,0 +1,17 @@
+<p>Greetings,<br />
+<%= @shared_folder.user.name %> has shared the "<%= @shared_folder.folder.name %>" folder on MyBox with you.
+</p>
+<p>
+Message from <%= @shared_folder.user.name %>:
+<blockquote>
+"<%= @shared_folder.message %>"
+</blockquote>
+</p>
+<p>
+You can now log in at <%= new_user_session_url %> and view the folder if you have an account already.<br />
+If you don't have one,  you can sign up here a <%= new_user_registration_url %>
+</p>
+<p>
+Sharing makes us all stronger.<br />
+MyBox
+</p>

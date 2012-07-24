@@ -4,13 +4,13 @@
 <% else %>
   <div id="menu">
     <ul id="top_menu">
-      
+
       <% if !@current_folder %>
       <li><%= link_to "Upload", new_asset_path %></li>
-      <li><%= link_to "New Folder", new_folder_path %></li> 
+      <li><%= link_to "New Folder", new_folder_path %></li>
       <% else %>
       <li><%= link_to "Upload", new_sub_file_path(@current_folder) %></li>
-      <li><%= link_to "New Folder", new_sub_folder_path(@current_folder) %></li> 
+      <li><%= link_to "New Folder", new_sub_folder_path(@current_folder) %></li>
       <% end %>
     </ul>
   </div>
@@ -21,6 +21,16 @@
     <div class="file_last_updated_header">Modified</div>
   </div>
   <div class="asset_list">
+    <!-- Listing Shared Folders (the folders shared by others) -->
+    <% @being_shared_folders.each do |folder| %>
+      <div class="asset_details <%= folder.shared? ? 'shared_folder' : 'folder' %>" id="folder_<%= folder.id %>">
+        <div class="file_name">&nbsp;&nbsp;<%= link_to folder.name, browse_path(folder) %></div>
+        <div class="file_size"> - </div>
+        <div class="file_last_updated"> - </div>
+        <div class="actions">
+        </div>
+      </div>
+    <% end %>
     <!--Listing Folders -->
       <% @folders.each do |folder| %>
         <div class="asset_details <%= folder.shared? ? 'shared_folder' : 'folder' %>" id="folder_<%= folder.id %>">
